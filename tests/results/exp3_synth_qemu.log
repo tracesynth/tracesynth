@@ -1,0 +1,1813 @@
+now is the 1 iteration
+synth ppo by litmus test 0
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+validate: LB
+herd: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; , 0:x5=1; 1:x5=1; ]
+chip: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+failed: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/LB.litmus
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/LB.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+run
+{0:x7=1; 1:x7=1; 0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> lw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x7, 0(x8) | <0x04> sw x7, 0(x8) ;
+
+QType.Exists (0:x5==1/\1:x5==1)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x5=0; 1:x5=0;  => 1
+0:x5=0; 1:x5=1;  => 1
+0:x5=1; 1:x5=0;  => 1
+0:x5=1; 1:x5=1;  => 1
+Time LB  0.0241s
+#Executions: 18
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/LB.litmus
+b_minus_a: {0:x5=1; 1:x5=1; }
+1
+strengthen,s,exe 0:x5=1; 1:x5=1;  [P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+events sequence
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, is write event:False
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	(R), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+now check the paths P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+[(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]
+from this path get ppo
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 False True
+candidate_add_ppo R;po;W
+all_rels
+rel --: None P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['coe']
+rel P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+rel P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 True False ['rfe']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.W(e2)
+
+add_rels
+add rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 False True ['po']
+add rel P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 False True ['po']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, is write event:True
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	(W), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [R];po;[W] target_ppo [R];po;[W]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, is write event:False
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	(R), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]]
+need_check_ppo [R];po;[W] target_ppo [R];po;[W]
+add_rels_final
+add rel final P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 False True ['po']
+add rel final P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 False True ['po']
+check all rels
+check rel --: None P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['coe']
+check rel P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+check rel P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 True False ['rfe']
+check rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 False True ['po']
+check rel P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 False True ['po']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, is write event:False
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	(R), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]]
+need_check_ppo [R];po;[W] target_ppo [R];po;[W]
+insert_path [(P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, is write event:True
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	(W), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [R];po;[W] target_ppo [R];po;[W]
+insert_path [(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]
+{}
+filter_cycle [[P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	]]
+ppo [R];po;[W]
+e1 P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+cycle str
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	
+start_relation rfe
+end relation rfe
+path_single_ppo [R];po;[W]
+other_single_ppo rfe;[R];po;[W];rfe
+path_single_ppo justify [R];po;[W]
+other_single_ppo justify rfe;[R];po;[W];rfe
+diy_cycle PodRW Rfe PodRW Rfe
+stengthen state, 0:x5=1; 1:x5=1;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x71ca35f9b560> [P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	lw x5_p0_1, 0(x6_p0_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x71ca35f9b050>] False
+{0:x7=1; 1:x7=1; 0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> lw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x7, 0(x8) | <0x04> sw x7, 0(x8) ;
+
+QType.Exists (0:x5==1/\1:x5==1)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x5=0; 1:x5=0;  => 1
+0:x5=0; 1:x5=1;  => 1
+0:x5=1; 1:x5=0;  => 1
+0:x5=1; 1:x5=1;  => 1
+Time LB  0.0191s
+#Executions: 18
+
+complete exe list
+get new mm
+uninit_func_list
+new_mm start
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 1
+candidate_ppo: [R];po;[W], relax is False
+ID: 0 cur candidate_ppo: [R];po;[W],relax is False
+[R];po;[W]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[]
+ppo [R];po;[W] contain_flag False can_relax_flag False
+add ppo [R];po;[W] PPOValidFlag.Valid
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+before_cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]']
+after cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]', '[R];po;[W]']
+ppo [R];po;[W] index 0
+[R];po;[W]
+test use herd
+old_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+new_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+ppo [R];po;[W]
+new_test_path_list ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe': [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]}
+now_herd_logs_ppo_remove {'R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe': [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; , 0:x5=1; 0:x9=2; ]}
+R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe
+[0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; , 0:x5=1; 0:x9=2; ]
+[0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]
+['R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe']
+check ppo [R];po;[W]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+validate: R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe
+herd: [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]
+chip: [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]
+check ppo [R];po;[W] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [R];po;[W]
+start check
+check counter ppo
+ppo:[R];po;[W] => counter_ppo:
+-----------------
+ID0:candidate_ppo [R];po;[W]
+before add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+end add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+check cat array start
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/LB.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe.litmus
+validate: LB
+herd: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+chip: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+validate: R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe
+herd: [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]
+chip: [0:x5=0; 0:x9=1; , 0:x5=0; 0:x9=2; , 0:x5=1; 0:x9=1; ]
+candidate_ppo: [R];po;[W], cur_failed_litmus_tests: [], passed? True
+
+[R];po;[W] pass test
+==== candidate ppo ====
+[R];po;[W] [R];po;[W] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/LB.litmus
+synth ppo by litmus test 1
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+validate: MP
+herd: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=0; , 1:x5=1; 1:x7=1; ]
+chip: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+failed: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+run
+{0:x5=1; 0:x6=x; 0:x7=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x5, 0(x7) | <0x04> lw x7, 0(x8) ;
+
+QType.Exists (1:x5==1/\1:x7==0)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+1:x5=0; 1:x7=0;  => 1
+1:x5=0; 1:x7=1;  => 1
+1:x5=1; 1:x7=0;  => 1
+1:x5=1; 1:x7=1;  => 1
+Time MP  0.0176s
+#Executions: 18
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+b_minus_a: {1:x5=1; 1:x7=0; }
+1
+strengthen,s,exe 1:x5=1; 1:x7=0;  [P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	(R), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')
+now check the paths P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]
+from this path get ppo
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False
+candidate_add_ppo R;po;R
+all_rels
+rel --: None P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['coe']
+rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+rel P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 False True ['fre']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	(R), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [R];po;[R] target_ppo [R];po;[R]
+add_rels_final
+add rel final P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+check all rels
+check rel --: None P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['coe']
+check rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+check rel P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 False True ['fre']
+check rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+stengthen state, 1:x5=1; 1:x7=0;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x71ca35f5bd40> [P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x71ca35f5bf80>] False
+{0:x5=1; 0:x6=x; 0:x7=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x5, 0(x7) | <0x04> lw x7, 0(x8) ;
+
+QType.Exists (1:x5==1/\1:x7==0)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+1:x5=0; 1:x7=0;  => 1
+1:x5=0; 1:x7=1;  => 1
+1:x5=1; 1:x7=0;  => 1
+1:x5=1; 1:x7=1;  => 1
+Time MP  0.0192s
+#Executions: 18
+
+complete exe list
+get new mm
+uninit_func_list
+ppo_candidate_func38 R;po;W 
+def ppo_candidate_func38(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.W(e2)
+ PPOInitFlag.Verified
+new_mm start
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 0
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+start check
+check counter ppo
+==== candidate ppo ====
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+synth ppo by litmus test 2
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+validate: 2+2W
+herd: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; , [x]=2; [y]=2; ]
+chip: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+failed: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/2+2W.litmus
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/2+2W.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+run
+{0:x5=2; 0:x7=1; 1:x5=2; 1:x7=1; 0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> sw x5, 0(x6) ;
+<0x04> sw x7, 0(x8) | <0x04> sw x7, 0(x8) ;
+
+QType.Exists (x==2/\y==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+[x]=1; [y]=1;  => 1
+[x]=1; [y]=2;  => 1
+[x]=2; [y]=1;  => 1
+[x]=2; [y]=2;  => 1
+Time 2+2W  0.0124s
+#Executions: 24
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/2+2W.litmus
+b_minus_a: {[x]=2; [y]=2; }
+1
+strengthen,s,exe [x]=2; [y]=2;  [P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+events sequence
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, is write event:True
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	(W), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+now check the paths P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+[(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]
+from this path get ppo
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True
+candidate_add_ppo W;po;W
+all_rels
+rel --: None P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['coe']
+rel --: None P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+rel P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.po(e1,e2) and ra.W(e2)
+
+add_rels
+add rel P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['po']
+add rel P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['po']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, is write event:True
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, is write event:True
+ei,ej,relations, P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	(W), P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	(W), ['po']
+this path is True
+(P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [W];po;[W] target_ppo [W];po;[W]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, is write event:True
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	(W), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]]
+need_check_ppo [W];po;[W] target_ppo [W];po;[W]
+add_rels_final
+add rel final P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['po']
+add rel final P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['po']
+check all rels
+check rel --: None P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['coe']
+check rel --: None P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+check rel P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+check rel P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	 P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	 True True ['po']
+check rel P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	 True True ['po']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, is write event:True
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, is write event:True
+ei,ej,relations, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	(W), P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	(W), ['po']
+this path is True
+(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]]
+need_check_ppo [W];po;[W] target_ppo [W];po;[W]
+insert_path [(P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, 'po')]
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, is write event:True
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, is write event:True
+ei,ej,relations, P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	(W), P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	(W), ['po']
+this path is True
+(P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [W];po;[W] target_ppo [W];po;[W]
+insert_path [(P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, 'po')]
+{}
+filter_cycle [[P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	]]
+ppo [W];po;[W]
+e1 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+e2 P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+cycle str
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	
+cycle str after change
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	
+P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	
+P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	
+start_relation coe
+end relation coe
+path_single_ppo [W];po;[W]
+other_single_ppo coe;[W];po;[W];coe
+path_single_ppo justify [W];po;[W]
+other_single_ppo justify coe;[W];po;[W];coe
+diy_cycle PodWW Coe PodWW Coe
+stengthen state, [x]=2; [y]=2;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x71ca35fc33b0> [P0: <0x04>	sw x7_p0_0, 0(x8_p0_0)	, P1: <0x00>	sw x5_p1_0, 0(x6_p1_0)	, P1: <0x04>	sw x7_p1_0, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x71ca35fc26f0>] False
+{0:x5=2; 0:x7=1; 1:x5=2; 1:x7=1; 0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> sw x5, 0(x6) ;
+<0x04> sw x7, 0(x8) | <0x04> sw x7, 0(x8) ;
+
+QType.Exists (x==2/\y==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+[x]=1; [y]=1;  => 1
+[x]=1; [y]=2;  => 1
+[x]=2; [y]=1;  => 1
+[x]=2; [y]=2;  => 1
+Time 2+2W  0.0132s
+#Executions: 24
+
+complete exe list
+get new mm
+uninit_func_list
+ppo_candidate_func38 R;po;W 
+def ppo_candidate_func38(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.W(e2)
+ PPOInitFlag.Verified
+new_mm start
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 1
+candidate_ppo: [W];po;[W], relax is False
+ID: 0 cur candidate_ppo: [W];po;[W],relax is False
+[W];po;[W]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[]
+ppo [W];po;[W] contain_flag False can_relax_flag False
+add ppo [W];po;[W] PPOValidFlag.Valid
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+before_cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]', '[R];po;[W]']
+after cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]', '[R];po;[W]', '[W];po;[W]']
+ppo [W];po;[W] index 0
+[W];po;[W]
+test use herd
+old_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+new_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+ppo [W];po;[W]
+new_test_path_list ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe': [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]}
+now_herd_logs_ppo_remove {'W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe': [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; , 0:x9=2; 1:x9=2; ]}
+W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe
+[0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; , 0:x9=2; 1:x9=2; ]
+[0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]
+['W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe']
+check ppo [W];po;[W]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+validate: W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe
+herd: [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]
+chip: [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]
+check ppo [W];po;[W] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [W];po;[W]
+start check
+check counter ppo
+ppo:[W];po;[W] => counter_ppo:
+-----------------
+ID0:candidate_ppo [W];po;[W]
+before add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+end add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+check cat array start
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/2+2W.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe.litmus
+validate: 2+2W
+herd: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+chip: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+validate: W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe
+herd: [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]
+chip: [0:x9=1; 1:x9=1; , 0:x9=1; 1:x9=2; , 0:x9=2; 1:x9=1; ]
+candidate_ppo: [W];po;[W], cur_failed_litmus_tests: [], passed? True
+
+[W];po;[W] pass test
+==== candidate ppo ====
+[W];po;[W] [W];po;[W] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/2+2W.litmus
+iterate 1 final validate:
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+check cat array final start
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+check cat arrat final end
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+validate: LB
+herd: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+chip: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+validate: MP
+herd: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=0; , 1:x5=1; 1:x7=1; ]
+chip: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+failed: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+validate: 2+2W
+herd: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+chip: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+final validate False
+failed_litmus_tests ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus']
+now is the 2 iteration
+synth ppo by litmus test 0
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+validate: LB
+herd: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+chip: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+synth ppo by litmus test 1
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+validate: MP
+herd: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=0; , 1:x5=1; 1:x7=1; ]
+chip: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+failed: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+run
+{0:x5=1; 0:x6=x; 0:x7=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x5, 0(x7) | <0x04> lw x7, 0(x8) ;
+
+QType.Exists (1:x5==1/\1:x7==0)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+1:x5=0; 1:x7=0;  => 1
+1:x5=0; 1:x7=1;  => 1
+1:x5=1; 1:x7=0;  => 1
+1:x5=1; 1:x7=1;  => 1
+Time MP  0.0177s
+#Executions: 18
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+b_minus_a: {1:x5=1; 1:x7=0; }
+1
+strengthen,s,exe 1:x5=1; 1:x7=0;  [P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	(R), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')
+now check the paths P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]
+from this path get ppo
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False
+candidate_add_ppo R;po;R
+all_rels
+rel --: None P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['coe']
+rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+rel P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 False True ['fre']
+rel P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['po']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	(R), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [R];po;[R] target_ppo [R];po;[R]
+add_rels_final
+add rel final P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+check all rels
+check rel --: None P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['coe']
+check rel --: None P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 True False ['rfe']
+check rel P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 False True ['fre']
+check rel P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	 P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	 True True ['po']
+check rel P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	 False False ['po']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, is write event:False
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	(R), P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	(R), ['po']
+this path is True
+(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')
+get_all_paths_from_e1_to_e2 [[(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]]
+need_check_ppo [R];po;[R] target_ppo [R];po;[R]
+insert_path [(P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	, P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, 'po')]
+{}
+filter_cycle [[P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	]]
+ppo [R];po;[R]
+e1 P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+e2 P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+cycle str
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+cycle str after change
+P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	
+P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	
+P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	
+P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	
+start_relation fre
+end relation rfe
+path_single_ppo [R];po;[R]
+other_single_ppo fre;[W];po;[W];rfe
+path_single_ppo justify [R];po;[R]
+other_single_ppo justify fre;[W];po;[W];rfe
+diy_cycle PodRR Fre PodWW Rfe
+stengthen state, 1:x5=1; 1:x7=0;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x71ca35f9b5c0> [P1: <0x04>	lw x7_p1_1, 0(x8_p1_0)	, P0: <0x00>	sw x5_p0_0, 0(x6_p0_0)	, P0: <0x04>	sw x5_p0_0, 0(x7_p0_0)	, P1: <0x00>	lw x5_p1_1, 0(x6_p1_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x71ca35f32810>] False
+{0:x5=1; 0:x6=x; 0:x7=y; 1:x6=y; 1:x8=x}
+         P0         |         P1          ;
+<0x00> sw x5, 0(x6) | <0x00> lw x5, 0(x6) ;
+<0x04> sw x5, 0(x7) | <0x04> lw x7, 0(x8) ;
+
+QType.Exists (1:x5==1/\1:x7==0)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+1:x5=0; 1:x7=0;  => 1
+1:x5=0; 1:x7=1;  => 1
+1:x5=1; 1:x7=0;  => 1
+1:x5=1; 1:x7=1;  => 1
+Time MP  0.0177s
+#Executions: 18
+
+complete exe list
+get new mm
+uninit_func_list
+ppo_candidate_func38 R;po;W 
+def ppo_candidate_func38(ra, e1: Event, e2: Event) -> bool:
+    return ra.R(e1) and ra.po(e1,e2) and ra.W(e2)
+ PPOInitFlag.Verified
+ppo_candidate_func39 W;po;W 
+def ppo_candidate_func39(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.po(e1,e2) and ra.W(e2)
+ PPOInitFlag.Verified
+new_mm start
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 1
+candidate_ppo: [R];po;[R], relax is False
+ID: 0 cur candidate_ppo: [R];po;[R],relax is False
+[R];po;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[]
+ppo [R];po;[R] contain_flag False can_relax_flag False
+add ppo [R];po;[R] PPOValidFlag.Valid
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+before_cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]', '[R];po;[W]', '[W];po;[W]']
+after cat_str_array ['[R];po-loc;[W]', '[W];po-loc;[W]', '([R];po-loc\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])', '[XSc];rfi;[R]', '[AMO];rfi;[R]', '[R];fencerel(Fence.r.r);[R]', '[R];fencerel(Fence.r.w);[W]', '[R];fencerel(Fence.r.rw);[R]', '[R];fencerel(Fence.r.rw);[W]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.w);[W]', '[W];fencerel(Fence.w.rw);[W]', '[W];fencerel(Fence.w.rw);[R]', '[R];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.rw.r);[R]', '[R];fencerel(Fence.rw.w);[W]', '[W];fencerel(Fence.rw.w);[W]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[W]', '[R];fencerel(Fence.tso);[R]', '[AQ];po;[W]', '[AQ];po;[R]', '[W];po;[RL]', '[R];po;[RL]', '[RL];po;[AQ]', '[XLr];rmw;[XSc]', '[R];addr;[W]', '[R];addr;[R]', '[R];data;[W]', '[R];ctrl;[W]', '[R];addr;[W];rfi;[R]', '[R];data;[W];rfi;[R]', '[R];addr;[W];po;[W]', '[R];addr;[R];po;[W]', '[R];po;[W]', '[W];po;[W]', '([R];po\\(po-loc;[W];po-loc)\\(rsw);[R])\\([AMO];po-loc;[R])']
+ppo [R];po;[R] index 0
+[R];po;[R]
+test use herd
+old_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+new_cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+([R];po\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+ppo [R];po;[R]
+new_test_path_list ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe': [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]}
+now_herd_logs_ppo_remove {'R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe': [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=0; , 0:x5=1; 0:x7=1; ]}
+R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe
+[0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=0; , 0:x5=1; 0:x7=1; ]
+[0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]
+['R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe']
+check ppo [R];po;[R]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe.litmus']
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+validate: R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe
+herd: [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]
+chip: [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]
+check ppo [R];po;[R] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [R];po;[R]
+start check
+check counter ppo
+ppo:[R];po;[R] => counter_ppo:
+-----------------
+ID0:candidate_ppo [R];po;[R]
+before add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+end add cat array
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+check cat array start
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+([R];po\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe.litmus
+validate: MP
+herd: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+chip: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+validate: R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe
+herd: [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]
+chip: [0:x5=0; 0:x7=0; , 0:x5=0; 0:x7=1; , 0:x5=1; 0:x7=1; ]
+candidate_ppo: [R];po;[R], cur_failed_litmus_tests: [], passed? True
+
+[R];po;[R] pass test
+==== candidate ppo ====
+[R];po;[R] [R];po;[R] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/experiment/exp3_sifive/MP.litmus
+synth ppo by litmus test 2
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+now herd cat
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+([R];po\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+validate: 2+2W
+herd: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+chip: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+iterate 2 final validate:
+[R];po-loc;[W];po-loc;[R]
+[R];po-loc;[R]
+[R];rsw;[R]
+[R];po-loc;[R]
+[AMO];po-loc;[R]
+[R];po-loc;[R]
+[R];po-loc;[W];po-loc;[R]
+[R];po;[R]
+[R];rsw;[R]
+[R];po;[R]
+[AMO];po-loc;[R]
+[R];po;[R]
+check cat array final start
+[R];po-loc;[W]
+[W];po-loc;[W]
+([R];po-loc\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+[XSc];rfi;[R]
+[AMO];rfi;[R]
+[R];fencerel(Fence.r.r);[R]
+[R];fencerel(Fence.r.w);[W]
+[R];fencerel(Fence.r.rw);[R]
+[R];fencerel(Fence.r.rw);[W]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.w);[W]
+[W];fencerel(Fence.w.rw);[W]
+[W];fencerel(Fence.w.rw);[R]
+[R];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.r);[R]
+[R];fencerel(Fence.rw.w);[W]
+[W];fencerel(Fence.rw.w);[W]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[W]
+[R];fencerel(Fence.tso);[R]
+[AQ];po;[W]
+[AQ];po;[R]
+[W];po;[RL]
+[R];po;[RL]
+[RL];po;[AQ]
+[XLr];rmw;[XSc]
+[R];addr;[W]
+[R];addr;[R]
+[R];data;[W]
+[R];ctrl;[W]
+[R];addr;[W];rfi;[R]
+[R];data;[W];rfi;[R]
+[R];addr;[W];po;[W]
+[R];addr;[R];po;[W]
+[R];po;[W]
+[W];po;[W]
+([R];po\(po-loc;[W];po-loc)\(rsw);[R])\([AMO];po-loc;[R])
+check cat arrat final end
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+validate: LB
+herd: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+chip: [0:x5=0; 1:x5=0; , 0:x5=0; 1:x5=1; , 0:x5=1; 1:x5=0; ]
+validate: MP
+herd: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+chip: [1:x5=0; 1:x7=0; , 1:x5=0; 1:x7=1; , 1:x5=1; 1:x7=1; ]
+validate: 2+2W
+herd: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+chip: [[x]=1; [y]=1; , [x]=1; [y]=2; , [x]=2; [y]=1; ]
+final validate True
+failed_litmus_tests []
+[('ppo_candidate_func0', 'R;po;W', '\ndef ppo_candidate_func0(ra, e1: Event, e2: Event) -> bool:\n    return ra.R(e1) and ra.po(e1,e2) and ra.W(e2)\n', <PPOInitFlag.Verified: 3>), ('ppo_candidate_func1', 'W;po;W', '\ndef ppo_candidate_func1(ra, e1: Event, e2: Event) -> bool:\n    return ra.W(e1) and ra.po(e1,e2) and ra.W(e2)\n', <PPOInitFlag.Verified: 3>), ('ppo_candidate_func2', 'R;po;R', '\ndef ppo_candidate_func2(ra, e1: Event, e2: Event) -> bool:\n    return ra.R(e1) and ra.po(e1,e2) and ra.R(e2)\n', <PPOInitFlag.Verified: 3>)]
+ppo_list
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]

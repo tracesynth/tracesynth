@@ -1,0 +1,19 @@
+----------------------------------------------------
+these ppo find litmus test[W];po;[R]
+[W];fencerel(Fence.w.rw);[R]
+[W];fencerel(Fence.r.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.w);[R]
+[W];fencerel(Fence.w.w);[R]
+[W];fencerel(Fence.r.r);[R]
+[W];fencerel(Fence.r.w);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.tso);[R]
+[W];rfi;[R]
+[W];po;[R];po;[R]
+[W];po;[W];po;[R]
+[W];po;[W];rfi;[R]
+[W];rfi;[R];po;[R]
+----------------------------------------------------
+----------------------------------------------------
+these ppo not find litmus test----------------------------------------------------

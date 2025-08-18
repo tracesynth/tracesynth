@@ -1,0 +1,5 @@
+[W];po;[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.rw);[R]

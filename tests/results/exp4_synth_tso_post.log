@@ -1,0 +1,1999 @@
+now is the 1 iteration
+synth ppo by litmus test 0
+now herd cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe']
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+validate litmus by tgt_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence rw, r   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 3
+0:x7=0; 1:x9=1;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0782s
+#Executions: 96
+
+validate litmus by cur_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence rw, r   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0697s
+#Executions: 96
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+strengthen,s,exe 0:x7=0; 1:x9=2;  [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+now check the paths P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+{}
+filter_cycle [[P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	]]
+ppo [W];fencerel(Fence.rw.rw);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.rw.rwdWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;po;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.po(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+get_all_paths_from_e1_to_e2 [[(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')]]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+{}
+filter_cycle [[P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	]]
+ppo [W];po;[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];po;[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];po;[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle PodWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence_rw_r;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_rw_r(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+need_check_ppo [W];fencerel(Fence.rw.r);[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+add_rels_final
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_rw_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_rw_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+need_check_ppo [W];fencerel(Fence.rw.r);[R] target_ppo [W];fencerel(Fence.rw.r);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_rw_r')]
+{}
+filter_cycle [[P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	]]
+ppo [W];fencerel(Fence.rw.r);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.rw.r);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.rw.r);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+stengthen state, 0:x7=0; 1:x9=2;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x7a9d205bbb90> [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x7a9d205cb140>] False
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence rw, r   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0283s
+#Executions: 32
+
+complete exe list
+get new mm
+uninit_func_list
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 3
+candidate_ppo: [W];po;[R], relax is False
+candidate_ppo: [W];fencerel(Fence.rw.r);[R], relax is False
+candidate_ppo: [W];fencerel(Fence.rw.rw);[R], relax is False
+ID: 0 cur candidate_ppo: [W];po;[R],relax is False
+[W];po;[R]
+[]
+ppo [W];po;[R] contain_flag False can_relax_flag False
+add ppo [W];po;[R] PPOValidFlag.Valid
+before_cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]']
+after cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];po;[R]']
+ppo [W];po;[R] index 0
+diyone7 cmd: eval $(opam env); diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus PodWR Fre Fence.rw.rwdWW Coe
+[W];po;[R]
+test use herd
+old_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+new_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];po;[R]
+ppo [W];po;[R]
+new_test_path_list ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe']
+ID: 1 cur candidate_ppo: [W];fencerel(Fence.rw.r);[R],relax is False
+[W];fencerel(Fence.rw.r);[R]
+[]
+ppo [W];fencerel(Fence.rw.r);[R] contain_flag False can_relax_flag False
+add ppo [W];fencerel(Fence.rw.r);[R] PPOValidFlag.Valid
+before_cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]']
+after cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.r);[R]']
+W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus
+W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus.litmus
+ppo [W];fencerel(Fence.rw.r);[R] index 0
+diyone7 cmd: eval $(opam env); diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+[W];fencerel(Fence.rw.r);[R]
+test use herd
+old_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+new_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+ppo [W];fencerel(Fence.rw.r);[R]
+new_test_path_list []
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {}
+now_herd_logs_ppo_remove {}
+[]
+synth litmus test for ppo: [W];fencerel(Fence.rw.r);[R]
+ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+new_ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+check legal [W, fenceD, R, fre, W, fenceD, W, coe]
+check legal pass [W, fenceD, R, fre, W, fenceD, W, coe]
+use herd check start before pass transform Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+diyone7 cmd: eval $(opam env);diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+RISCV /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+"Fence.rw.rdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence rw,r  | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+
+use herd check start after pass transform Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test']
+use herd check result:  True
+now find ppo:[W];fencerel(Fence.rw.r);[R], static time:1
+now find ppo:[W];fencerel(Fence.rw.r);[R], herd time:1
+cycle, litmus_file_content [W];fencerel(Fence.rw.r);[R];fre;[W];fencerel(Fence.rw.rw);[W];coe RISCV W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe
+"Fence.rw.rdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.rw.rdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence rw,r  | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+ W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe
+litmus suite ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+ID: 2 cur candidate_ppo: [W];fencerel(Fence.rw.rw);[R],relax is False
+[W];fencerel(Fence.rw.rw);[R]
+ppo [W];fencerel(Fence.rw.rw);[R] contain_flag True can_relax_flag False
+check ppo [W];po;[R]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe']
+check ppo [W];po;[R] False
+check ppo [W];fencerel(Fence.rw.r);[R]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+check ppo [W];fencerel(Fence.rw.r);[R] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [W];fencerel(Fence.rw.r);[R]
+start check
+check counter ppo
+ppo:[W];fencerel(Fence.rw.r);[R] => counter_ppo:
+-----------------
+ID0:candidate_ppo [W];fencerel(Fence.rw.r);[R]
+before add cat array
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+end add cat array
+check cat array start
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+candidate_ppo: [W];fencerel(Fence.rw.r);[R], cur_failed_litmus_tests: [], passed? True
+
+[W];fencerel(Fence.rw.r);[R] pass test
+==== candidate ppo ====
+[W];fencerel(Fence.rw.r);[R] [W];fencerel(Fence.rw.r);[R] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+synth ppo by litmus test 1
+now herd cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe']
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+validate litmus by tgt_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, r    | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 3
+0:x7=0; 1:x9=1;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0730s
+#Executions: 96
+
+validate litmus by cur_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, r    | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0696s
+#Executions: 96
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+strengthen,s,exe 0:x7=0; 1:x9=2;  [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+now check the paths P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+{}
+filter_cycle [[P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	]]
+ppo [W];fencerel(Fence.rw.rw);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+cycle str after change
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.rw.rwdWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;po;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.po(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+get_all_paths_from_e1_to_e2 [[(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')]]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+{}
+filter_cycle [[P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	]]
+ppo [W];po;[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+cycle str after change
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];po;[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];po;[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle PodWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence_w_r;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_w_r(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.w.r);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.w.r);[R]
+need_check_ppo [W];fencerel(Fence.w.r);[R] target_ppo [W];fencerel(Fence.w.r);[R]
+add_rels_final
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_r']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_r']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.w.r);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.w.r);[R]
+need_check_ppo [W];fencerel(Fence.w.r);[R] target_ppo [W];fencerel(Fence.w.r);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_r')]
+{}
+filter_cycle [[P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	]]
+ppo [W];fencerel(Fence.w.r);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+cycle str after change
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.w.r);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.w.r);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+stengthen state, 0:x7=0; 1:x9=2;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x7a9d205b8800> [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x7a9d20afb1a0>] False
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, r    | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe  0.0538s
+#Executions: 32
+
+complete exe list
+get new mm
+uninit_func_list
+ppo_candidate_func7 W;fence_rw_r;R 
+def ppo_candidate_func7(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_rw_r(e1,e2) and ra.R(e2)
+ PPOInitFlag.Verified
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 3
+candidate_ppo: [W];po;[R], relax is False
+candidate_ppo: [W];fencerel(Fence.w.r);[R], relax is False
+candidate_ppo: [W];fencerel(Fence.rw.rw);[R], relax is False
+ID: 0 cur candidate_ppo: [W];po;[R],relax is False
+[W];po;[R]
+[]
+ppo [W];po;[R] contain_flag False can_relax_flag False
+add ppo [W];po;[R] PPOValidFlag.Invalid
+ID: 1 cur candidate_ppo: [W];fencerel(Fence.w.r);[R],relax is False
+[W];fencerel(Fence.w.r);[R]
+[]
+ppo [W];fencerel(Fence.w.r);[R] contain_flag False can_relax_flag False
+add ppo [W];fencerel(Fence.w.r);[R] PPOValidFlag.Valid
+before_cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.r);[R]']
+after cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.w.r);[R]']
+ppo [W];fencerel(Fence.w.r);[R] index 0
+diyone7 cmd: eval $(opam env); diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+[W];fencerel(Fence.w.r);[R]
+test use herd
+old_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+new_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+ppo [W];fencerel(Fence.w.r);[R]
+new_test_path_list []
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {}
+now_herd_logs_ppo_remove {}
+[]
+synth litmus test for ppo: [W];fencerel(Fence.w.r);[R]
+ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+new_ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+check legal [W, fenceD, R, fre, W, fenceD, W, coe]
+check legal pass [W, fenceD, R, fre, W, fenceD, W, coe]
+use herd check start before pass transform Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+diyone7 cmd: eval $(opam env);diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+RISCV /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+"Fence.w.rdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence w,r   | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+
+use herd check start after pass transform Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test']
+use herd check result:  True
+now find ppo:[W];fencerel(Fence.w.r);[R], static time:1
+now find ppo:[W];fencerel(Fence.w.r);[R], herd time:1
+cycle, litmus_file_content [W];fencerel(Fence.w.r);[R];fre;[W];fencerel(Fence.rw.rw);[W];coe RISCV W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe
+"Fence.w.rdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.w.rdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence w,r   | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+ W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe
+litmus suite ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+ID: 2 cur candidate_ppo: [W];fencerel(Fence.rw.rw);[R],relax is False
+[W];fencerel(Fence.rw.rw);[R]
+ppo [W];fencerel(Fence.rw.rw);[R] contain_flag True can_relax_flag False
+check ppo [W];fencerel(Fence.w.r);[R]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+check ppo [W];fencerel(Fence.w.r);[R] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [W];fencerel(Fence.w.r);[R]
+start check
+check counter ppo
+ppo:[W];fencerel(Fence.w.r);[R] => counter_ppo:
+-----------------
+ID0:candidate_ppo [W];fencerel(Fence.w.r);[R]
+before add cat array
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+end add cat array
+check cat array start
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+candidate_ppo: [W];fencerel(Fence.w.r);[R], cur_failed_litmus_tests: [], passed? True
+
+[W];fencerel(Fence.w.r);[R] pass test
+==== candidate ppo ====
+[W];fencerel(Fence.w.r);[R] [W];fencerel(Fence.w.r);[R] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+synth ppo by litmus test 2
+now herd cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe']
+synth ppo by litmus test ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+validate litmus by tgt_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, rw   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 3
+0:x7=0; 1:x9=1;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe  0.0711s
+#Executions: 96
+
+validate litmus by cur_mm
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, rw   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe  0.0699s
+#Executions: 96
+
+failed file: /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+strengthen,s,exe 0:x7=0; 1:x9=2;  [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	]
+--------------create constraint-------------------------
+use constraint extract ppo from e1,e2 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+now check the paths P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.rw.rw);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')]
+{}
+filter_cycle [[P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	]]
+ppo [W];fencerel(Fence.rw.rw);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.rw.rw);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.rw.rwdWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;po;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.po(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, is write event:True
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['fence', 'po', 'fence_rw_rw']
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')
+get_all_paths_from_e1_to_e2 [[(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'po'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, 'fence_rw_rw'), (P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'fence_rw_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[W];po-loc;[R] target_ppo [W];po;[R]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, is write event:True
+P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, is write event:False
+ei,ej,relations, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	(W), P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	(R), ['po', 'po_loc']
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')
+this path is True
+(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')
+get_all_paths_from_e1_to_e2 [[(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po')], [(P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	, 'po_loc')]]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+add_rels_final
+add rel final P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+add rel final P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['po', 'po_loc']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];po;[R]
+need_check_ppo [W];po;[R] target_ppo [W];po;[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')]
+{}
+filter_cycle [[P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	]]
+ppo [W];po;[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];po;[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];po;[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle PodWR Fre Fence.rw.rwdWW Coe
+from this path get ppo
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False
+candidate_add_ppo W;fence_w_rw;R
+all_rels
+rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+python_func_string 
+def ppo_candidate_func__1(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_w_rw(e1,e2) and ra.R(e2)
+
+add_rels
+add rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+need_check_ppo [W];fencerel(Fence.w.rw);[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+add_rels_final
+add rel final P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+check all rels
+check rel --: None P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['coe']
+check rel --: None P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 True True ['coe']
+check rel P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 True True ['coe']
+check rel --: None P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['rfe']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['rfe']
+check rel P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 False True ['fre']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	 True True ['fence', 'po', 'fence_rw_rw']
+check rel P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	 P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	 True False ['fence', 'po', 'fence_rw_rw']
+check rel P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	 True False ['fence', 'po', 'fence_w_rw']
+need insert
+enter get_path_from_e1_to_e2_by_ppo
+events sequence
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, is write event:True
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, is write event:False
+ei,ej,relations, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	(W), P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	(R), ['fence', 'po', 'fence_w_rw']
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')
+this path is True
+(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')
+get_all_paths_from_e1_to_e2 [[(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'po')], [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]]
+need_check_ppo [W];fencerel(Fence.rw.rw);[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+need_check_ppo [W];po;[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+need_check_ppo [W];fencerel(Fence.w.rw);[R] target_ppo [W];fencerel(Fence.w.rw);[R]
+insert_path [(P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, 'fence_w_rw')]
+{}
+filter_cycle [[P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	]]
+ppo [W];fencerel(Fence.w.rw);[R]
+e1 P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+e2 P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+cycle str after change
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+cycle str after change
+P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	
+P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	
+P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	
+P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	
+start_relation fre
+end relation coe
+path_single_ppo [W];fencerel(Fence.w.rw);[R]
+other_single_ppo fre;[W];fencerel(Fence.rw.rw);[W];coe
+path_single_ppo justify [W];fencerel(Fence.w.rw);[R]
+other_single_ppo justify fre;[W];fencerel(Fence.rw.rw);[W];coe
+diy_cycle Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+stengthen state, 0:x7=0; 1:x9=2;  <src.tracesynth.analysis.rel.GlobalRelationAnalyzer object at 0x7a9d2038ade0> [P0: <0x0C>	lw x7_p0_1, 0(x8_p0_0)	, P1: <0x04>	sw x5_p1_1, 0(x6_p1_0)	, P1: <0x10>	sw x7_p1_1, 0(x8_p1_0)	, P0: <0x04>	sw x5_p0_1, 0(x6_p0_0)	, P1: <0x14>	lw x9_p1_1, 0(x8_p1_0)	] [<src.tracesynth.synth.constraint.Constraint object at 0x7a9d205afd40>] False
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x}
+         P0          |         P1           ;
+<0x00> ori x5, x0, 2 | <0x00> ori x5, x0, 1 ;
+<0x04> sw x5, 0(x6)  | <0x04> sw x5, 0(x6)  ;
+<0x08> fence w, rw   | <0x08> fence rw, rw  ;
+<0x0C> lw x7, 0(x8)  | <0x0C> ori x7, x0, 1 ;
+                     | <0x10> sw x7, 0(x8)  ;
+                     | <0x14> lw x9, 0(x8)  ;
+
+QType.Exists (0:x7==0/\1:x9==2)
+
+Progress [1/1]: |██████████████████████████████████████████████████| 100.0%
+
+States 4
+0:x7=0; 1:x9=1;  => 2
+0:x7=0; 1:x9=2;  => 1
+0:x7=1; 1:x9=1;  => 2
+0:x7=1; 1:x9=2;  => 1
+Time W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe  0.0281s
+#Executions: 32
+
+complete exe list
+get new mm
+uninit_func_list
+ppo_candidate_func7 W;fence_rw_r;R 
+def ppo_candidate_func7(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_rw_r(e1,e2) and ra.R(e2)
+ PPOInitFlag.Verified
+ppo_candidate_func8 W;fence_w_r;R 
+def ppo_candidate_func8(ra, e1: Event, e2: Event) -> bool:
+    return ra.W(e1) and ra.fence_w_r(e1,e2) and ra.R(e2)
+ PPOInitFlag.Verified
+init failed: 1
+start synth
+any_ppo size: 1
+candidate_ppos size: 3
+candidate_ppo: [W];po;[R], relax is False
+candidate_ppo: [W];fencerel(Fence.w.rw);[R], relax is False
+candidate_ppo: [W];fencerel(Fence.rw.rw);[R], relax is False
+ID: 0 cur candidate_ppo: [W];po;[R],relax is False
+[W];po;[R]
+[]
+ppo [W];po;[R] contain_flag False can_relax_flag False
+add ppo [W];po;[R] PPOValidFlag.Invalid
+ID: 1 cur candidate_ppo: [W];fencerel(Fence.w.rw);[R],relax is False
+[W];fencerel(Fence.w.rw);[R]
+[]
+ppo [W];fencerel(Fence.w.rw);[R] contain_flag False can_relax_flag False
+add ppo [W];fencerel(Fence.w.rw);[R] PPOValidFlag.Valid
+before_cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.w.r);[R]']
+after cat_str_array ['[R];po;[W]', '[W];po;[W]', '[R];po;[R]', '[R];fencerel(Fence.rw.rw);[W]', '[W];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.rw);[W]', '[R];fencerel(Fence.rw.rw);[R]', '[W];fencerel(Fence.rw.r);[R]', '[W];fencerel(Fence.w.r);[R]', '[W];fencerel(Fence.w.rw);[R]']
+ppo [W];fencerel(Fence.w.rw);[R] index 0
+diyone7 cmd: eval $(opam env); diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+[W];fencerel(Fence.w.rw);[R]
+test use herd
+old_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+new_cat
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.rw);[R]
+ppo [W];fencerel(Fence.w.rw);[R]
+new_test_path_list []
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {}
+now_herd_logs_ppo_remove {}
+[]
+synth litmus test for ppo: [W];fencerel(Fence.w.rw);[R]
+ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+new_ppo [<class 'src.tracesynth.synth.memory_relation.W'>, <class 'src.tracesynth.synth.memory_relation.FenceD'>, <class 'src.tracesynth.synth.memory_relation.R'>]
+check legal [W, fenceD, R, fre, W, fenceD, W, coe]
+check legal pass [W, fenceD, R, fre, W, fenceD, W, coe]
+use herd check start before pass transform Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+diyone7 cmd: eval $(opam env);diyone7 -arch RISC-V -obs local -name /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+RISCV /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+"Fence.w.rwdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence w,rw  | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+
+use herd check start after pass transform Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test': [0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test
+[0:x7=0; 1:x9=1; , 0:x7=0; 1:x9=2; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+[0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]
+['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/test_ppo/new_test']
+use herd check result:  True
+now find ppo:[W];fencerel(Fence.w.rw);[R], static time:1
+now find ppo:[W];fencerel(Fence.w.rw);[R], herd time:1
+cycle, litmus_file_content [W];fencerel(Fence.w.rw);[R];fre;[W];fencerel(Fence.rw.rw);[W];coe RISCV W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe
+"Fence.w.rwdWR Fre Fence.rw.rwdWW Coe"
+Generator=diyone7 (version 7.56)
+Prefetch=0:x=F,0:y=T,1:y=F,1:x=W
+Com=Fr Co
+Orig=Fence.w.rwdWR Fre Fence.rw.rwdWW Coe
+{
+0:x6=x; 0:x8=y;
+1:x6=y; 1:x8=x;
+}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ fence w,rw  | fence rw,rw ;
+ lw x7,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+exists (0:x7=0 /\ 1:x9=2)
+ W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe
+litmus suite ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+ID: 2 cur candidate_ppo: [W];fencerel(Fence.rw.rw);[R],relax is False
+[W];fencerel(Fence.rw.rw);[R]
+ppo [W];fencerel(Fence.rw.rw);[R] contain_flag True can_relax_flag False
+check ppo [W];fencerel(Fence.w.rw);[R]
+new_test_paths ['/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus']
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+check ppo [W];fencerel(Fence.w.rw);[R] True
+===== run all new tests on the validated candidate ppos =====
+check these ppo
+ID0:candidate_ppo [W];fencerel(Fence.w.rw);[R]
+start check
+check counter ppo
+ppo:[W];fencerel(Fence.w.rw);[R] => counter_ppo:
+-----------------
+ID0:candidate_ppo [W];fencerel(Fence.w.rw);[R]
+before add cat array
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+end add cat array
+check cat array start
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.rw);[R]
+check cat array end
+check litmus test suite
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+candidate_ppo: [W];fencerel(Fence.w.rw);[R], cur_failed_litmus_tests: [], passed? True
+
+[W];fencerel(Fence.w.rw);[R] pass test
+==== candidate ppo ====
+[W];fencerel(Fence.w.rw);[R] [W];fencerel(Fence.w.rw);[R] False
+finished /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus
+iterate 1 final validate:
+check cat array final start
+[R];po;[W]
+[W];po;[W]
+[R];po;[R]
+[R];fencerel(Fence.rw.rw);[W]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.rw);[W]
+[R];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.rw);[R]
+check cat arrat final end
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/rvtso.cat
+/home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat
+now_herd_logs_ppo_add {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+now_herd_logs_ppo_remove {'W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe': [0:x7=0; 1:x9=1; , 0:x7=1; 1:x9=1; , 0:x7=1; 1:x9=2; ]}
+[]
+final validate True
+failed_litmus_tests []
+[('ppo_candidate_func0', 'W;fence_rw_r;R', '\ndef ppo_candidate_func0(ra, e1: Event, e2: Event) -> bool:\n    return ra.W(e1) and ra.fence_rw_r(e1,e2) and ra.R(e2)\n', <PPOInitFlag.Verified: 3>), ('ppo_candidate_func1', 'W;fence_w_r;R', '\ndef ppo_candidate_func1(ra, e1: Event, e2: Event) -> bool:\n    return ra.W(e1) and ra.fence_w_r(e1,e2) and ra.R(e2)\n', <PPOInitFlag.Verified: 3>), ('ppo_candidate_func2', 'W;fence_w_rw;R', '\ndef ppo_candidate_func2(ra, e1: Event, e2: Event) -> bool:\n    return ra.W(e1) and ra.fence_w_rw(e1,e2) and ra.R(e2)\n', <PPOInitFlag.Verified: 3>)]
+ppo_list
+[W];po;[R]
+[W];fencerel(Fence.rw.r);[R]
+[W];fencerel(Fence.rw.rw);[R]
+[W];fencerel(Fence.w.r);[R]
+[W];fencerel(Fence.w.rw);[R]

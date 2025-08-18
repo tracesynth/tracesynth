@@ -1,0 +1,14 @@
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/litmus/non-mixed-size/HAND/ISA03+SIMPLE.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat, time cost: 1.6689300537109375e-06
+
+Test ISA03+SIMPLE Required
+States 1
+a=2;
+Ok
+Witnesses
+Positive: 2 Negative: 0
+Condition forall (a=2)
+Observation ISA03+SIMPLE Always 2 0
+Time ISA03+SIMPLE 0.19
+Hash=277646d28ce797552d4c6351515fb0f7
+
+[INFO] total time cost: 0.207138

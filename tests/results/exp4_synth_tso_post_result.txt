@@ -1,0 +1,7 @@
+search ppo time: 1.186060905456543s
+synth litmus test time: 26.316491842269897s
+run litmus test time: 0.6369912624359131s
+W;fence_rw_r;R
+W;fence_w_r;R
+W;fence_w_rw;R
+time:  4.049079656600952s

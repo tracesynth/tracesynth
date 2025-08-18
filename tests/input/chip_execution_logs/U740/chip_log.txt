@@ -1,0 +1,517 @@
+Wed Jul  2 15:02:00 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for 2+2W.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV 2+2W
+"PodWW Wse PodWW Wse"
+{0:x5=2; 0:x6=x; 0:x7=1; 0:x8=y; 1:x5=2; 1:x6=y; 1:x7=1; 1:x8=x;}
+ P0          | P1          ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ sw x7,0(x8) | sw x7,0(x8) ;
+
+exists (x=2 /\ y=2)
+Generated assembler
+#START _litmus_P0
+	sw a6,0(a5)
+	sw a7,0(a4)
+#START _litmus_P1
+	sw a6,0(a5)
+	sw a7,0(a4)
+Test 2+2W Allowed
+Histogram (3 states)
+390128:>x=1; y=1;
+9707392:>x=2; y=1;
+9902480:>x=1; y=2;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (x=2 /\ y=2) is NOT validated
+Hash=1762fc2faa075cba02bfe39439261ba5
+Cycle=Wse PodWW Wse PodWW
+Relax 2+2W No
+Safe=Wse PodWW
+Generator=diy7 (version 7.51+4(dev))
+Com=Ws Ws
+Orig=PodWW Wse PodWW Wse
+Observation 2+2W Never 0 20000000
+Time 2+2W 74.24
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 2+2W.litmus -o 2+2W
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 15:03:14 2025
+
+Wed Jul  2 14:52:38 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for LB.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV LB
+"PodRW Rfe PodRW Rfe"
+{0:x6=x; 0:x7=1; 0:x8=y; 1:x6=y; 1:x7=1; 1:x8=x;}
+ P0          | P1          ;
+ lw x5,0(x6) | lw x5,0(x6) ;
+ sw x7,0(x8) | sw x7,0(x8) ;
+
+exists (0:x5=1 /\ 1:x5=1)
+Generated assembler
+#START _litmus_P0
+	lw a1,0(a5)
+	sw a7,0(a4)
+#START _litmus_P1
+	lw a1,0(a5)
+	sw a7,0(a4)
+Test LB Allowed
+Histogram (3 states)
+456983:>0:x5=0; 1:x5=0;
+9752992:>0:x5=1; 1:x5=0;
+9790025:>0:x5=0; 1:x5=1;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x5=1 /\ 1:x5=1) is NOT validated
+Hash=585d57e5ad552d5cb01e772ee7cc749c
+Cycle=Rfe PodRW Rfe PodRW
+Relax LB No
+Safe=Rfe PodRW
+Generator=diy7 (version 7.51+4(dev))
+Com=Rf Rf
+Orig=PodRW Rfe PodRW Rfe
+Observation LB Never 0 20000000
+Time LB 72.17
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 LB.litmus -o LB
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 14:53:50 2025
+
+Wed Jul  2 14:54:43 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for MP.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV MP
+"PodWW Rfe PodRR Fre"
+{0:x5=1; 0:x6=x; 0:x7=y; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ sw x5,0(x6) | lw x5,0(x6) ;
+ sw x5,0(x7) | lw x7,0(x8) ;
+
+exists (1:x5=1 /\ 1:x7=0)
+Generated assembler
+#START _litmus_P1
+	lw a1,0(a5)
+	lw a0,0(a4)
+#START _litmus_P0
+	sw a6,0(a5)
+	sw a6,0(a4)
+Test MP Allowed
+Histogram (3 states)
+9907326:>1:x5=0; 1:x7=0;
+320880:>1:x5=0; 1:x7=1;
+9771794:>1:x5=1; 1:x7=1;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (1:x5=1 /\ 1:x7=0) is NOT validated
+Hash=2939da84098a543efdbb91e30585ab71
+Cycle=Rfe PodRR Fre PodWW
+Relax MP No
+Safe=Rfe Fre PodWW PodRR
+Generator=diy7 (version 7.51+4(dev))
+Com=Rf Fr
+Orig=PodWW Rfe PodRR Fre
+Observation MP Never 0 20000000
+Time MP 72.55
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 MP.litmus -o MP
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 14:55:55 2025
+
+Wed Jul  2 14:58:26 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for SB.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV SB
+"PodWR Fre PodWR Fre"
+{0:x5=1; 0:x6=x; 0:x8=y; 1:x5=1; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ lw x7,0(x8) | lw x7,0(x8) ;
+
+exists (0:x7=0 /\ 1:x7=0)
+Generated assembler
+#START _litmus_P0
+	sw a7,0(a5)
+	lw a1,0(a4)
+#START _litmus_P1
+	sw a7,0(a5)
+	lw a1,0(a4)
+Test SB Allowed
+Histogram (3 states)
+9719806:>0:x7=1; 1:x7=0;
+9681441:>0:x7=0; 1:x7=1;
+598753:>0:x7=1; 1:x7=1;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x7=0 /\ 1:x7=0) is NOT validated
+Hash=1be21f7e9dba92a472a306f5f690a1f6
+Cycle=Fre PodWR Fre PodWR
+Relax SB No
+Safe=Fre PodWR
+Generator=diy7 (version 7.51+4(dev))
+Com=Fr Fr
+Orig=PodWR Fre PodWR Fre
+Observation SB Never 0 20000000
+Time SB 71.91
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 SB.litmus -o SB
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 14:59:38 2025
+
+Wed Jul  2 15:08:01 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe
+"PodRR Fre Fence.rw.rwdWW Rfe"
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ lw x5,0(x6) | ori x5,x0,1 ;
+ lw x7,0(x8) | sw x5,0(x6) ;
+             | fence rw,rw ;
+             | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+
+exists (0:x5=1 /\ 0:x7=0)
+Generated assembler
+#START _litmus_P1
+	ori t3,x0,1
+	sw t3,0(a5)
+	fence rw,rw
+	ori t1,x0,1
+	sw t1,0(a4)
+#START _litmus_P0
+	lw a1,0(a5)
+	lw a0,0(a4)
+Test R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe Allowed
+Histogram (3 states)
+9956004:>0:x5=0; 0:x7=0;
+336407:>0:x5=0; 0:x7=1;
+9707589:>0:x5=1; 0:x7=1;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x5=1 /\ 0:x7=0) is NOT validated
+Hash=f57adfd0129d5d1c4b9a04f0f0729e63
+Generator=diyone7 (version 7.56)
+Com=Fr Rf
+Orig=PodRR Fre Fence.rw.rwdWW Rfe
+Observation R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe Never 0 20000000
+Time R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe 71.94
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe.litmus -o R_po_R_PodRR_Fre_Fence_rw_rwdWW_Rfe
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 15:09:12 2025
+
+Wed Jul  2 15:09:31 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe
+"PodRW Coe Fence.rw.rwdWW Rfe"
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ lw x5,0(x6) | ori x5,x0,2 ;
+ ori x7,x0,1 | sw x5,0(x6) ;
+ sw x7,0(x8) | fence rw,rw ;
+ lw x9,0(x8) | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+
+exists (0:x9=2 /\ 0:x5=1)
+Generated assembler
+#START _litmus_P0
+	lw a1,0(a5)
+	ori t6,x0,1
+	sw t6,0(a4)
+	lw a0,0(a4)
+#START _litmus_P1
+	ori t3,x0,2
+	sw t3,0(a5)
+	fence rw,rw
+	ori t1,x0,1
+	sw t1,0(a4)
+Test R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe Allowed
+Histogram (3 states)
+10219552:>0:x5=0; 0:x9=1;
+9732277:>0:x5=1; 0:x9=1;
+48171 :>0:x5=0; 0:x9=2;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x9=2 /\ 0:x5=1) is NOT validated
+Hash=2377825e6f1790d5fb86236cb118bda2
+Generator=diyone7 (version 7.56)
+Com=Co Rf
+Orig=PodRW Coe Fence.rw.rwdWW Rfe
+Observation R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe Never 0 20000000
+Time R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe 71.90
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe.litmus -o R_po_W_PodRW_Coe_Fence_rw_rwdWW_Rfe
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 15:10:43 2025
+
+Wed Jul  2 15:12:46 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe
+"PodWR Fre Fence.rw.rwdWW Coe"
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,1 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ lw x7,0(x8) | fence rw,rw ;
+             | ori x7,x0,1 ;
+             | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+
+exists (0:x7=0 /\ 1:x9=2)
+Generated assembler
+#START _litmus_P1
+	ori t5,x0,1
+	sw t5,0(a5)
+	fence rw,rw
+	ori t4,x0,1
+	sw t4,0(a4)
+	lw a1,0(a4)
+#START _litmus_P0
+	ori t4,x0,2
+	sw t4,0(a5)
+	lw a1,0(a4)
+Test W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe Allowed
+Histogram (3 states)
+9468813:>0:x7=0; 1:x9=1;
+10047312:>0:x7=1; 1:x9=1;
+483875:>0:x7=1; 1:x9=2;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x7=0 /\ 1:x9=2) is NOT validated
+Hash=5f7b79fbdd0154c440ecd20373570c0f
+Generator=diyone7 (version 7.56)
+Com=Fr Co
+Orig=PodWR Fre Fence.rw.rwdWW Coe
+Observation W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe Never 0 20000000
+Time W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe 72.25
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus -o W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 15:13:58 2025
+
+Wed Jul  2 15:11:05 2025
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results for W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe.litmus %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+RISCV W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe
+"PodWW Coe Fence.rw.rwdWW Coe"
+{0:x6=x; 0:x8=y; 1:x6=y; 1:x8=x;}
+ P0          | P1          ;
+ ori x5,x0,2 | ori x5,x0,2 ;
+ sw x5,0(x6) | sw x5,0(x6) ;
+ ori x7,x0,1 | fence rw,rw ;
+ sw x7,0(x8) | ori x7,x0,1 ;
+ lw x9,0(x8) | sw x7,0(x8) ;
+             | lw x9,0(x8) ;
+
+exists (0:x9=2 /\ 1:x9=2)
+Generated assembler
+#START _litmus_P1
+	ori t5,x0,2
+	sw t5,0(a5)
+	fence rw,rw
+	ori t4,x0,1
+	sw t4,0(a4)
+	lw a1,0(a4)
+#START _litmus_P0
+	ori t5,x0,2
+	sw t5,0(a5)
+	ori t4,x0,1
+	sw t4,0(a4)
+	lw a1,0(a4)
+Test W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe Allowed
+Histogram (3 states)
+19314491:>0:x9=1; 1:x9=1;
+66675 :>0:x9=2; 1:x9=1;
+618834:>0:x9=1; 1:x9=2;
+No
+
+Witnesses
+Positive: 0, Negative: 20000000
+Condition exists (0:x9=2 /\ 1:x9=2) is NOT validated
+Hash=ec604d78f3fb5cf31dca4cd7912cdf67
+Generator=diyone7 (version 7.56)
+Com=Co Co
+Orig=PodWW Coe Fence.rw.rwdWW Coe
+Observation W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe Never 0 20000000
+Time W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe 72.57
+Revision exported, version 7.56
+Command line: litmus7 -carch RISCV -limit true -mem direct -p 0,1 -barrier userfence -stride 1 -size_of_test 100 -number_of_run 10 -driver C -gcc riscv64-unknown-linux-gnu-gcc -ccopts -O2 -linkopt -static -smtmode seq -smt 2 -avail 4 W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe.litmus -o W_po_W_PodWW_Coe_Fence_rw_rwdWW_Coe
+Parameters
+#define SIZE_OF_TEST 100
+#define NUMBER_OF_RUN 10
+#define AVAIL 4
+#define STRIDE 1
+#define MAX_LOOP 0
+/* gcc options: -Wall -std=gnu99 -O2 -pthread */
+/* gcc link options: -static */
+/* barrier: userfence */
+/* launch: changing */
+/* affinity: none */
+/* procs: {0,1} */
+/* alloc: dynamic */
+/* memory: direct */
+/* stride: 1 */
+/* safer: write */
+/* preload: random */
+/* speedcheck: no */
+/* proc used: 4 */
+Command: ./run.exe -r 100000
+Wed Jul  2 15:12:17 2025

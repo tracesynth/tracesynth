@@ -1,0 +1,243 @@
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 2.1457672119140625e-06
+
+Test W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_po_R_PodWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=5f7b79fbdd0154c440ecd20373570c0f
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 2.384185791015625e-06
+
+Test W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.rw.r_R_Fence_rw_rdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=4f36637c792dbfef5d86a393eb971608
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.r.r_R_Fence_r_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.6689300537109375e-06
+
+Test W_fencerelFence.r.r_R_Fence_r_rdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.r.r_R_Fence_r_rdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.r.r_R_Fence_r_rdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=c73289b2bee8a1054dbfa18bd89b3348
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.9073486328125e-06
+
+Test W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.w.r_R_Fence_w_rdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=7f9508dc5cb629640c3c0e84b812c14b
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_rfi_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.1920928955078125e-06
+
+Test W_rfi_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 5
+0:x7=1; 0:x8=1; 1:x9=1;
+0:x7=2; 0:x8=0; 1:x9=1;
+0:x7=2; 0:x8=0; 1:x9=2;
+0:x7=2; 0:x8=1; 1:x9=1;
+0:x7=2; 0:x8=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 6
+Condition exists (0:x7=2 /\ 0:x8=0 /\ 1:x9=2)
+Observation W_rfi_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 6
+Time W_rfi_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=d54a96feb5510642434fd7f1be4e3d9f
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_po_W_rfi_R_PodWW_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.1920928955078125e-06
+
+Test W_po_W_rfi_R_PodWW_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x9=1; 0:x10=0; 1:x9=1;
+0:x9=1; 0:x10=0; 1:x9=2;
+0:x9=1; 0:x10=1; 1:x9=1;
+0:x9=1; 0:x10=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x9=1 /\ 0:x10=0 /\ 1:x9=2)
+Observation W_po_W_rfi_R_PodWW_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_po_W_rfi_R_PodWW_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=3134610ffa2cab77ecfeab9837bf51b4
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.tso_R_Fence_tsodWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.6689300537109375e-06
+
+Test W_fencerelFence.tso_R_Fence_tsodWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.tso_R_Fence_tsodWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.tso_R_Fence_tsodWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=13e9dd950e11e9555c09204e9118acd3
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_rfi_R_po_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.6689300537109375e-06
+
+Test W_rfi_R_po_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 5
+0:x7=1; 0:x8=1; 1:x9=1;
+0:x7=2; 0:x8=0; 1:x9=1;
+0:x7=2; 0:x8=0; 1:x9=2;
+0:x7=2; 0:x8=1; 1:x9=1;
+0:x7=2; 0:x8=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 6
+Condition exists (0:x7=2 /\ 0:x8=0 /\ 1:x9=2)
+Observation W_rfi_R_po_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 6
+Time W_rfi_R_po_R_Rfi_PodRR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=d54a96feb5510642434fd7f1be4e3d9f
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.9073486328125e-06
+
+Test W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.w.rw_R_Fence_w_rwdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=d85a9f8aa745278e92cdf0020ecc28b4
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_po_R_po_R_PodWR_PodRR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.9073486328125e-06
+
+Test W_po_R_po_R_PodWR_PodRR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x9=0; 1:x9=1;
+0:x9=0; 1:x9=2;
+0:x9=1; 1:x9=1;
+0:x9=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x9=0 /\ 1:x9=2)
+Observation W_po_R_po_R_PodWR_PodRR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_po_R_po_R_PodWR_PodRR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=46dd165f1174698854e8f9a5c7e033ad
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_po_W_po_R_PodWW_PodWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.1920928955078125e-06
+
+Test W_po_W_po_R_PodWW_PodWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x9=0; 1:x9=1;
+0:x9=0; 1:x9=2;
+0:x9=1; 1:x9=1;
+0:x9=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x9=0 /\ 1:x9=2)
+Observation W_po_W_po_R_PodWW_PodWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_po_W_po_R_PodWW_PodWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=30002fc5ad76776ec62fc64d3b8a48b9
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.r.w_R_Fence_r_wdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.9073486328125e-06
+
+Test W_fencerelFence.r.w_R_Fence_r_wdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.r.w_R_Fence_r_wdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.r.w_R_Fence_r_wdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=772ace348264a27e145f127ff71fda67
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.r.rw_R_Fence_r_rwdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.6689300537109375e-06
+
+Test W_fencerelFence.r.rw_R_Fence_r_rwdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.r.rw_R_Fence_r_rwdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.r.rw_R_Fence_r_rwdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=f62acf891e58cda1c1a593991761c40f
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.rw.w_R_Fence_rw_wdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 2.384185791015625e-06
+
+Test W_fencerelFence.rw.w_R_Fence_rw_wdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.rw.w_R_Fence_rw_wdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.rw.w_R_Fence_rw_wdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=72f211beacde78506ebdbf7dc1237a84
+
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/complete_litmus_tso/W_fencerelFence.w.w_R_Fence_w_wdWR_Fre_Fence_rw_rwdWW_Coe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-0.cat, time cost: 1.9073486328125e-06
+
+Test W_fencerelFence.w.w_R_Fence_w_wdWR_Fre_Fence_rw_rwdWW_Coe Allowed
+States 4
+0:x7=0; 1:x9=1;
+0:x7=0; 1:x9=2;
+0:x7=1; 1:x9=1;
+0:x7=1; 1:x9=2;
+Ok
+Witnesses
+Positive: 1 Negative: 5
+Condition exists (0:x7=0 /\ 1:x9=2)
+Observation W_fencerelFence.w.w_R_Fence_w_wdWR_Fre_Fence_rw_rwdWW_Coe Sometimes 1 5
+Time W_fencerelFence.w.w_R_Fence_w_wdWR_Fre_Fence_rw_rwdWW_Coe 0.00
+Hash=90ee5dfd2600f393167bc5bda94661ec
+
+[INFO] total time cost: 0.317152
