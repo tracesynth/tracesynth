@@ -61,7 +61,7 @@ TraceSynth and MemSynth can be built directly from their respective Dockerfiles:
 docker build -t tracesynth ./docker
 
 # Build MemSynth Docker image
-docker build -t memsynth ./memsynth
+docker build -t memsynth ./tests/memsynth
 ```
 
 
