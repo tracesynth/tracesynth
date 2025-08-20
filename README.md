@@ -87,6 +87,7 @@ cd /home/synth/tracesynth/tests/experiment
 We also provide a script for Experiment 1 on C910 hardware, which can be executed as follows:
 
 ```
+mkdir ../results/exp1_log_with_C910
 ./run_with_C910.sh hostname port username password hostpath
 ```
 
