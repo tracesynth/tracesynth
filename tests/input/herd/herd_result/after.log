@@ -1,14 +1,16 @@
-[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/litmus/non-mixed-size/HAND/ISA03+SIMPLE.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat, time cost: 1.6689300537109375e-06
+[INFO] cmd: eval $(opam env); herd7 /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../output/new_tests/AMO_po_AMO_Rmw_PodWR_Rmw_Coe_Fence_rw_rwdWW_Rfe.litmus -model /home/whq/Desktop/code_list/tracesynth/src/tracesynth/../../tests/input/CAT/change/riscv-1.cat, time cost: 1.6689300537109375e-06
 
-Test ISA03+SIMPLE Required
-States 1
-a=2;
-Ok
+Test AMO_po_AMO_Rmw_PodWR_Rmw_Coe_Fence_rw_rwdWW_Rfe Allowed
+States 3
+0:x6=0; 0:x11=1;
+0:x6=0; 0:x11=2;
+0:x6=1; 0:x11=1;
+No
 Witnesses
-Positive: 2 Negative: 0
-Condition forall (a=2)
-Observation ISA03+SIMPLE Always 2 0
-Time ISA03+SIMPLE 0.19
-Hash=277646d28ce797552d4c6351515fb0f7
+Positive: 0 Negative: 4
+Condition exists (0:x11=2 /\ 0:x6=1)
+Observation AMO_po_AMO_Rmw_PodWR_Rmw_Coe_Fence_rw_rwdWW_Rfe Never 0 4
+Time AMO_po_AMO_Rmw_PodWR_Rmw_Coe_Fence_rw_rwdWW_Rfe 0.00
+Hash=c6eda852b79b2a8cfe3493871ff9e5e6
 
-[INFO] total time cost: 0.207138
+[INFO] total time cost: 0.020016

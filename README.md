@@ -33,15 +33,13 @@ We recommend executing the experiments on a recent Ubuntu distribution, equipped
 
 - **License**: MIT License.
 
-- **Archived**: Yes. The artifact is archived and permanently available via the following:
-        https://doi.org/10.5281/zenodo.16758525
 
 
 ## Description
 
 ### How to access
 
-Via the github link(https://github.com/tracesynth/tracesynth.git) or doi(https://doi.org/10.5281/zenodo.16758525).
+Via the github link(https://github.com/tracesynth/tracesynth.git).
 
 ### Hardware Dependencies
 
@@ -56,21 +54,15 @@ Although some experiments utilize data originally obtained from a C910 developme
 
 ### Installation
 
-To set up the environment, run the following command:
-
-
-```
-docker load -i tracesynth.tar
-docker run -it tracesynth /bin/bash
-```
-
-Alternatively, the image can be built from a Dockerfile:
+TraceSynth and MemSynth can be built directly from their respective Dockerfiles:
 
 ```
-cd docker 
-docker build -t tracesynth .
-```
+# Build TraceSynth Docker image
+docker build -t tracesynth ./docker
 
+# Build MemSynth Docker image
+docker build -t memsynth ./memsynth
+```
 
 
 ### Experimental Procedure
@@ -102,7 +94,6 @@ We also provide a script for Experiment 1 on C910 hardware, which can be execute
 For experiments related to MemSynth, execute the following commands:
 
 ```
-docker load -i memsynth.tar
 docker run -it memsynth /bin/bash
 export PATH=/opt/z3-4.5.0/bin:$PATH
 export LD_LIBRARY_PATH=/opt/z3-4.5.0/lib:$LD_LIBRARY_PATH
@@ -128,5 +119,7 @@ For MemSynth, all experimental results are stored in:
 ```
 /home/synth/memsynth/case-studies/synthesis/x86
 ```
+
+
 
 

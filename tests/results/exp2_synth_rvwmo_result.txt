@@ -12,4 +12,4 @@ AQRL;po;R
 AQ;po;W
 R;po;RL
 AQ;po;R
-time:  98.67641401290894
+time:  103.93678975105286

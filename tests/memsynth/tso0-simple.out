@@ -1,0 +1,19 @@
+===== TSO_0: synthesis experiment =====
+Tests: 16
+  positive: 13
+  negative: 3
+
+Sketch state space: 2^624
+
+Synthesizing...
+
+Synthesis complete!
+time: 885 ms
+tests used: 5/16
+
+solution: ppo: (& po (+ (- (-> Writes Writes) (& (join loc (~ loc)) (-> Atomics Atomics))) (+ (+ (-> Reads MemoryEvent) (& (join loc (~ loc)) (-> Atomics Atomics))) (-> (- Atomics Writes) Atomics))))
+          grf: rf
+           ab: (-> none none)
+
+Verifying solution...
+Verified 16 litmus tests
