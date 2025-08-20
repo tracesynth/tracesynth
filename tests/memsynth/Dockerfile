@@ -30,7 +30,7 @@ RUN sudo apt install -y --no-install-recommends openssh-server nano
 
 
 
-#RUN curl -L https://mirror.racket-lang.org/installers/8.2/racket-8.2-x86_64-linux.sh -o racket.sh
+RUN curl -L https://mirror.racket-lang.org/installers/7.4/racket-7.4-x86_64-linux.sh -o racket.sh
 
 WORKDIR /home/synth
 RUN git clone https://github.com/rmculpepper/custom-load.git
@@ -38,7 +38,7 @@ RUN git clone https://github.com/tonyg/racket-rfc6455.git
 RUN git clone https://github.com/emina/rosette.git
 RUN git clone https://github.com/jamesbornholt/ocelot.git
 
-COPY racket-7.4-x86_64-linux.sh racket.sh
+#COPY racket-7.4-x86_64-linux.sh racket.sh
 
 RUN chmod +x racket.sh && \
     ./racket.sh --in-place --dest /usr/racket && \
